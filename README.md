@@ -2,6 +2,8 @@
 
 A Gnome extension to Monitor Internet Speed and Daily Data Usage in an elegant and minimal fashion.
 
+Fork edits:(remove the decimal and numbers after that to make it even more minimal)
+
 ## Table of Contents
 
 - [↑↓ Internet Speed Monitor](#-internet-speed-monitor)
