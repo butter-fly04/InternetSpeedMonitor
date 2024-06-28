@@ -110,14 +110,14 @@ export default class InternetSpeedMonitor extends Extension {
   }
 
   netSpeedFormat(speed) {
-    let i = 0
-    while (speed >= unitBase) {
-      // Convert speed to KB, MB, GB or TB
-      speed /= unitBase
-      i++
-    }
-    return String(speed.toFixed(2) + '' + units[i])
+  let i = 0;
+  while (speed >= unitBase) {
+    // Convert speed to KB, MB, GB or TB
+    speed /= unitBase;
+    i++;
   }
+  return String(Math.floor(speed) + units[i]); // Use Math.floor to remove decimals
+}
 
   saveExceptionLog(e) {
     let log_file = Gio.file_new_for_path(home_dir + '/.local/var/log/InternetSpeedMonitor.log')
