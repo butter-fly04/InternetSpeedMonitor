@@ -116,7 +116,12 @@ export default class InternetSpeedMonitor extends Extension {
     speed /= unitBase;
     i++;
   }
-  return String(Math.floor(speed) + units[i]); // Use Math.floor to remove decimals
+
+  if (i >= 2) { // Check if unit is GB or above (i = 2 for GB)
+    return String(speed.toFixed(1) + units[i]); // Show one decimal place
+  } else {
+    return String(Math.floor(speed)) + units[i]; // Keep whole number for KB and MB
+  }
 }
 
   saveExceptionLog(e) {
