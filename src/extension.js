@@ -1,10 +1,3 @@
-/*
- * Name: Internet Speed Monitor
- * Description: Extension to Monitor Internet Speed and Daily Data Usage minimally.
- * Author: Rishu Raj
- * Modified from: InternetSpeedMeter by Al Shakib
- */
-
 import St from 'gi://St'
 import Gio from 'gi://Gio'
 import GLib from 'gi://GLib'
@@ -87,19 +80,18 @@ export default class InternetSpeedMonitor extends Extension {
       let finaltext = ''
       if (settings.get_boolean('separate-format')) {
         if (settings.get_boolean('separate-format-flipped')) {
-          finaltext += '↓ ' + this.netSpeedFormat(downloadSpeed) + ' ↑ ' + this.netSpeedFormat(uploadSpeed)
+          finaltext += this.netSpeedFormat(downloadSpeed) + ' ' + this.netSpeedFormat(uploadSpeed)
         } else {
-          finaltext += '↑ ' + this.netSpeedFormat(uploadSpeed) + ' ↓ ' + this.netSpeedFormat(downloadSpeed)
+          finaltext += this.netSpeedFormat(uploadSpeed) + ' ' + this.netSpeedFormat(downloadSpeed)
         }
       } else {
-        finaltext += '⇅ ' + this.netSpeedFormat(uploadSpeed + downloadSpeed)
+        finaltext += this.netSpeedFormat(uploadSpeed + downloadSpeed)
       }
 
       if (settings.get_boolean('show-data-used')) {
         finaltext += ' = ' + this.netSpeedFormat(dataused - lastdataused)
       }
       netSpeed.set_text(finaltext)
-      // netSpeed.set_text("↑ " + this.netSpeedFormat(uploadSpeed) + " ↓ " + this.netSpeedFormat(downloadSpeed) + " = " + this.netSpeedFormat(dataused - lastdataused) + " ");
       prevUploadBytes = uploadBytes
       prevDownloadBytes = downloadBytes
     } catch (e) {
@@ -110,19 +102,19 @@ export default class InternetSpeedMonitor extends Extension {
   }
 
   netSpeedFormat(speed) {
-  let i = 0;
-  while (speed >= unitBase) {
-    // Convert speed to KB, MB, GB or TB
-    speed /= unitBase;
-    i++;
-  }
+    let i = 0;
+    while (speed >= unitBase) {
+      // Convert speed to KB, MB, GB or TB
+      speed /= unitBase;
+      i++;
+    }
 
-  if (i >= 2) { // Check if unit is GB or above (i = 2 for GB)
-    return String(speed.toFixed(1) + units[i]); // Show one decimal place
-  } else {
-    return String(Math.floor(speed)) + units[i]; // Keep whole number for KB and MB
+    if (i >= 2) { // Check if unit is GB or above (i = 2 for GB)
+      return String(speed.toFixed(1) + units[i]); // Show one decimal place
+    } else {
+      return String(Math.floor(speed)) + units[i]; // Keep whole number for KB and MB
+    }
   }
-}
 
   saveExceptionLog(e) {
     let log_file = Gio.file_new_for_path(home_dir + '/.local/var/log/InternetSpeedMonitor.log')
@@ -154,7 +146,7 @@ export default class InternetSpeedMonitor extends Extension {
       y_expand: false,
       track_hover: false,
     })
-    defaultNetSpeedText = '⇅ --'
+    defaultNetSpeedText = '--'
     netSpeed = new St.Label({
       text: defaultNetSpeedText,
       style_class: 'netSpeedLabel',
@@ -162,7 +154,7 @@ export default class InternetSpeedMonitor extends Extension {
     })
     container.set_child(netSpeed)
     settings = this.getSettings(schema)
-    // log("Starting with used_data set as "+settings.get_boolean('show-data-used')+" separate-format as "+ settings.get_boolean('separate-format')+" in "+settings.get_enum('my-position')+" side.");
+
     // Positioning and Starting the extension
     if (settings.get_boolean('pos-left')) {
       Main.panel._leftBox.insert_child_at_index(container, 20)
