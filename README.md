@@ -91,7 +91,7 @@ Visit [Internet Speed Monitor - GNOME Shell Extensions](https://extensions.gnome
 1. Clone this repository
 
    ```bash
-   git clone https://github.com/rishuinfinity/InternetSpeedMonitor.git
+   git clone https://github.com/butter-fly04/InternetSpeedMonitor.git
    ```
 
 2. Change current directory to repository
