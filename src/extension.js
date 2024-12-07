@@ -89,7 +89,7 @@ export default class InternetSpeedMonitor extends Extension {
       }
 
       if (settings.get_boolean('show-data-used')) {
-        finaltext += ' = ' + this.netSpeedFormat(dataused - lastdataused)
+        finaltext += ' : ' + this.netSpeedFormat(dataused - lastdataused)
       }
       netSpeed.set_text(finaltext)
       prevUploadBytes = uploadBytes
